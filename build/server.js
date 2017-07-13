@@ -8,6 +8,7 @@ const webpackDevConfig = require('../webpack.config.dev');
 const webpackProdConfig = require('../webpack.config.prod');
 const open = require('open');
 const config = require('config');
+require('babel-polyfill');
 
 /* eslint-disable no-console */
 
@@ -28,15 +29,14 @@ if (isDev) {
 const compiler = webpack(webpackConfig);
 
 if (isDev) {
+  app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    publicPath: webpackConfig.output.publicPath
+  }));
 
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: webpackConfig.output.publicPath
-}));
+  app.use(require('webpack-hot-middleware')(compiler));
 
-app.use(require('webpack-hot-middleware')(compiler));
-
-console.log('Starting the development environment...'.green);
+  console.log('Starting the development environment...'.green);
 } else {
   app.use(express.static('dist'));
 
@@ -51,6 +51,8 @@ app.listen(port, function (err) {
   if (err) {
     console.log(err.red);
   } else {
-    open(`http://${hostname}:${port}`);
+    if (isDev) {
+      open(`http://${hostname}:${port}`);
+    }
   }
 });
