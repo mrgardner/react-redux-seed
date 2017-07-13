@@ -3,9 +3,7 @@ import logo from '../assets/logo.svg';
 
 class App extends Component {
 
-
   render() {
-    console.log(logo);
     return (
       <div className="App">
         <div className="App-header">

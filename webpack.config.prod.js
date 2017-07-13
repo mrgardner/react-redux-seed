@@ -20,13 +20,13 @@ module.exports = webpackMerge(sharedConfig, {
 
   plugins: [
 
-    // new VersionFile({
-    //   output: './dist/version.txt',
-    //   templateString: `<%= name %>@<%= version %>#<%= sha %>\nBuild date: <%= buildDate %>`,
-    //   data: {
-    //     sha: require('child_process').execSync('git rev-parse --short HEAD')
-    //   }
-    // }),
+    new VersionFile({
+      output: './dist/version.txt',
+      templateString: `<%= name %>@<%= version %>#<%= sha %>\nBuild date: <%= buildDate %>`,
+      data: {
+        sha: require('child_process').execSync('git rev-parse --short HEAD')
+      }
+    }),
 
     // @TODO: Is this necessary? (KSB-438)
     new webpack.DefinePlugin({

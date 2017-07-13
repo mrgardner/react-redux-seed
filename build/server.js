@@ -8,15 +8,14 @@ const webpackDevConfig = require('../webpack.config.dev');
 const webpackProdConfig = require('../webpack.config.prod');
 const open = require('open');
 const config = require('config');
+
 require('babel-polyfill');
 
 /* eslint-disable no-console */
 
 const isDev = process.env.NODE_ENV === 'development';
-const hostname = 'localhost'
-// const hostname = config.get('hostname');
-// const port = config.get('port');
-const port = 3000;
+const hostname = config.get('hostname');
+const port = config.get('port');
 const app = express();
 let webpackConfig = '';
 

@@ -3,20 +3,25 @@ const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-// const config = require('config');
-//
-// fs.writeFileSync(path.resolve(__dirname, 'dist/config.json'), JSON.stringify(config));
+const config = require('config');
+
+if (!fs.existsSync(path.resolve(__dirname, 'dist/'))) {
+  fs.mkdirSync(path.resolve(__dirname, 'dist/'));
+  fs.writeFileSync(path.resolve(__dirname, 'dist/config.json'), JSON.stringify(config));
+} else {
+  fs.writeFileSync(path.resolve(__dirname, 'dist/config.json'), JSON.stringify(config));
+}
 
 module.exports = {
   context: path.resolve(__dirname, './src'),
 
   cache: true,
 
-  // resolve: {
-  //   alias: {
-  //     Config$: path.resolve(__dirname, 'dist/config.json')
-  //   }
-  // },
+  resolve: {
+    alias: {
+      Config$: path.resolve(__dirname, 'dist/config.json')
+    }
+  },
 
   module: {
     rules: [
