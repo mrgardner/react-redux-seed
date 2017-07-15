@@ -28,7 +28,6 @@ module.exports = webpackMerge(sharedConfig, {
       }
     }),
 
-    // @TODO: Is this necessary? (KSB-438)
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
